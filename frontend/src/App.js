@@ -17,12 +17,21 @@ const myApi = axios.create({
   headers: {
     'Access-Control-Allow-Origin' : '*',
     'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    }
+  }
+});
+
+const awsLambdaApi = axios.create({
+  baseURL: 'https://3o4fbu5i55u2h7wyg2gu57thci0dgrjr.lambda-url.ap-southeast-1.on.aws',
+  headers: {
+    // 'Access-Control-Allow-Origin' : '*',
+    // 'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+  }
 });
 
 function App() {
 
   const [contacts, setContacts] = useState([]);
+  const [nusModules, setNUSModules] = useState([]);
   
   const [nameValue, setNameValue] = useState("");
   const onNameChange = (e) => setNameValue(e.target.value);
@@ -72,6 +81,20 @@ function App() {
     getAllContacts();
   }
 
+  const getSem1CSMods = () => {
+    console.log("getting...")
+    awsLambdaApi.get('/?sem=1').then(res => {
+      console.log(res)
+      setNUSModules(res.data.selectedMods)
+    })
+  }
+  const getSem2CSMods = () => {
+    console.log("getting...")
+    awsLambdaApi.get('/?sem=2').then(res => {
+      console.log(res)
+      setNUSModules(res.data.selectedMods)
+    })
+  }
 
   useEffect(()=> {
     console.log('Here')
@@ -173,7 +196,68 @@ function App() {
           }
           </div>
       </div>
+      <div style={{width: '100%',
+        display: 'flex', 
+        flexDirection: 'row',
+        justifyContent: 'center', 
+        }}>
+          <div style={{width: '50%',
+          display: 'flex',
+          justifyContent: 'center', 
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}>
+          <div style={{width: '100%',
+            display: 'flex',
+            justifyContent: 'center', 
+            alignItems: 'center',
+            flexDirection: 'row'
+          }}
+          >
+            <Button
+              size="small"
+              variant="contained"
+              color="primary" onClick={() => getSem1CSMods()} 
+            >
+              Get Sem 1 CS Modules for AY2223
+            </Button>
+            <Button
+              size="small"
+              variant="contained"
+              color="primary" onClick={() => getSem2CSMods()} 
+            >
+              Get Sem 2 CS Modules for AY2223
+            </Button>
+          </div>
+          <div style={{
+            overflowY: 'scroll',
+            height: '300px',
+            width: '100%',
+            margin: '4px'
+          }}>
+            {nusModules.map((module) => {
+                return (
+                  <Card key={module.moduleCode}
+                    sx={{
+                      width: '100%',
+                      backgroundColor: 'hsla(213, 90%, 60%, 1);',
+                      display: 'flex',
+                      justifyContent: 'flex-start',
+                      margin: '4px',
+                    }}
+                  >
+                    {module.moduleCode}
+                    {' : '}
+                    {module.title}
+                  </Card>
+                )
+                })
+            }
+          </div>
+          </div>
+      </div>
     </div>
+    
   );
 }
 
