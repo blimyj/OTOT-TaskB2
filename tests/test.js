@@ -32,7 +32,7 @@ describe("Tests", () => {
                 id = res.body.data._id;
                 done();
             });
-        });
+        }).timeout(8000);
     });
 
     describe('Valid GET API Call', function() {
@@ -67,7 +67,7 @@ describe("Tests", () => {
                 res.body.data.phone.should.equal(`${new_number}`);
                 done();
             });
-        });
+        }).timeout(6000);
     });
 
     describe('Valid GET API Call', function() {
