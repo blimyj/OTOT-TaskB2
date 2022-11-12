@@ -67,7 +67,7 @@ describe("Tests", () => {
                 res.body.data.phone.should.equal(`${new_number}`);
                 done();
             });
-        }).timeout(6000);
+        }).timeout(7000);
     });
 
     describe('Valid GET API Call', function() {
