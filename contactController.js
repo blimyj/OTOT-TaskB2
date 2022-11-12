@@ -51,6 +51,11 @@ exports.view = function (req, res) {
             })
         } else if (err) {
             res.status(500).send(err);
+        } else if (contact == null){
+            res.status(200).json({
+                message: 'Contact details not found. :(',
+                data: contact
+            });
         } else {
             res.status(200).json({
                 message: 'Contact details loading..',
