@@ -2,6 +2,8 @@
 let express = require('express')// Initialize the app
 let app = express();// Setup server port
 
+const cors = require('cors');
+app.use(cors());
 
 // Import routes
 let apiRoutes = require("./api-routes")// Use Api routes in the App

@@ -17,9 +17,11 @@ router.route('/contacts')
 
 router.route('/contacts/:contact_id')
     .get(contactController.view)
-    .patch(contactController.update)
     .put(contactController.update)
     .delete(contactController.delete);
+
+router.route('/deleteall')
+    .delete(contactController.deleteAll)
 
 // Export API routes
 module.exports = router;

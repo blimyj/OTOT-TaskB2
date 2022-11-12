@@ -76,20 +76,26 @@ exports.update = function (req, res) {
         } else if (err) {
             res.status(500).send(err)
         } else {
-            contact.name = req.body.name ? req.body.name : contact.name;
-            contact.gender = req.body.gender ? req.body.gender : contact.gender;
-            contact.email = req.body.email ? req.body.email : contact.email;
-            contact.phone = req.body.phone ? req.body.phone : contact.phone;
-            contact.save(function (err) {
-                if (err) {
-                    res.status(500).json(err)
-                } else {
-                    res.status(200).json({
-                        message: 'Contact Info updated',
-                        data: contact
-                    })
-                }
-            })
+            if (contact == null) {
+                res.status(404).json({
+                    message: 'Invalid Contact ID provided.',
+                })
+            } else {
+                contact.name = req.body.name ? req.body.name : contact.name;
+                contact.gender = req.body.gender ? req.body.gender : contact.gender;
+                contact.email = req.body.email ? req.body.email : contact.email;
+                contact.phone = req.body.phone ? req.body.phone : contact.phone;
+                contact.save(function (err) {
+                    if (err) {
+                        res.status(500).json(err)
+                    } else {
+                        res.status(200).json({
+                            message: 'Contact Info updated',
+                            data: contact
+                        })
+                    }
+                })
+            }
         }
     });
 };
@@ -109,6 +115,19 @@ exports.delete = function (req, res) {
         } else {
             res.status(200).json({
                 message: 'Contact deleted'
+            });
+        }
+    });
+};
+
+//Deletes all contacts
+exports.deleteAll = function (req, res) {
+    Contact.deleteMany({}, function (err, contact) {
+        if (err) {
+            res.status(500).send(err)
+        } else {
+            res.status(200).json({
+                message: 'All contacts deleted'
             });
         }
     });
