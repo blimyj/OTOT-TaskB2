@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 
 // mongoose.connect('mongodb://localhost/resthub', { useNewUrlParser: true});
 async function mongooseConnect() {
-    await mongoose.connect('mongodb://localhost/resthub', { useNewUrlParser: true});
+    await mongoose.connect('mongodb+srv://user:vZi8rwOKMcczEZ8z@cluster0.skh7rhi.mongodb.net/resthub?retryWrites=true&w=majority', { useNewUrlParser: true});
 }
 
 try {
