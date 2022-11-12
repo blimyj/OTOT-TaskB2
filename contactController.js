@@ -108,8 +108,7 @@ exports.delete = function (req, res) {
         } else if (err) {
             res.status(500).send(err)
         } else {
-            res.json({
-                status: "success",
+            res.status(200).json({
                 message: 'Contact deleted'
             });
         }

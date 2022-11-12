@@ -42,9 +42,11 @@ var port = process.env.PORT || 8080;// Send message for default URL
 app.get('/', (req, res) => res.send('Hello World with Express'));// Launch app to listen to specified port
 
 app.get('*', function(req, res){
-    res.status(404).send('Not Found Error')
+    res.status(404).json({message: 'Not Found Error'})
 })
 
 app.listen(port, function () {
         console.log("Running RestHub on port " + port);
 });
+
+module.exports = app;
