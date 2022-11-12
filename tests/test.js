@@ -92,8 +92,6 @@ describe("Tests", () => {
             .delete(`/api/contacts/${id}`)
             .send()
             .end((err, res) => {
-                console.log("ASDsadas")
-                console.log(res.body)
                 res.status.should.equal(200);         
                 res.body.should.be.a('object');
                 res.body.message.should.equal('Contact deleted');
@@ -114,7 +112,7 @@ describe("Tests", () => {
                 phone: "123765"
             })
             .end((err, res) => {
-                console.log(res.body)
+                // console.log(res.body)
                 res.status.should.equal(400);         
                 res.body.should.be.a('object');
                 res.body.message.should.equal('contact validation failed: name: Path `name` is required.');
@@ -134,7 +132,7 @@ describe("Tests", () => {
                 phone: "123765"
             })
             .end((err, res) => {
-                console.log(res.body)
+                // console.log(res.body)
                 res.status.should.equal(404);         
                 res.body.should.be.a('object');
                 res.body.message.should.equal('Invalid Contact ID provided.');
@@ -149,7 +147,7 @@ describe("Tests", () => {
             .get(`/invalidpath`)
             .send()
             .end((err, res) => {
-                console.log(res.body)
+                // console.log(res.body)
                 res.status.should.equal(404);         
                 res.body.should.be.a('object');
                 res.body.message.should.equal('Not Found Error');
@@ -164,7 +162,7 @@ describe("Tests", () => {
             .get(`/api/invalidpath`)
             .send()
             .end((err, res) => {
-                console.log(res.body)
+                // console.log(res.body)
                 res.status.should.equal(404);         
                 res.body.should.be.a('object');
                 res.body.message.should.equal('Not Found Error');

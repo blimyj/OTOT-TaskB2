@@ -68,7 +68,6 @@ exports.view = function (req, res) {
 // Handle update contact info
 exports.update = function (req, res) {
     Contact.findById(req.params.contact_id, function (err, contact) {
-        console.log(contact)
         if (err && err.name == "CastError") {
             res.status(404).json({
                 message: 'Invalid Contact ID provided.',
@@ -97,7 +96,7 @@ exports.update = function (req, res) {
 
 // Handle delete contact
 exports.delete = function (req, res) {
-    Contact.remove({
+    Contact.deleteOne({
         _id: req.params.contact_id
     }, function (err, contact) {
         if (err && err.name == "CastError") {
